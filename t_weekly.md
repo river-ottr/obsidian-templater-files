@@ -4,16 +4,21 @@ let weekly_title = ""
 if (/Week (\d|\d{2}) \d{4}/.test(tp.file.title)){ // listen event on file creation. regex is our protection against false flags. we'll assume the date from the "Week" WW YYYY format.
   weekly_title = tp.file.title;
 }
-else{ // this will fire when used as a template directly. not correctly named, we'll assume and rename based on today's date.
+else{ // not correctly named, we'll rename it based on today's date. this will fire when used as a template directly.
   weekly_title = "Week " + moment.format("w YYYY");
   await tp.file.rename(weekly_title);
-}
-%><%* // Days of the week as smart links, based on the date assumed or queried (today)
+} 
+// create buttons to scroll weeks, considering the date from the note's title. 
+const last_week_title = "Week " + moment(tp.file.title, "w YYYY").subtract(1, "w").format("w YYYY");
+const next_week_title = "Week " + moment(tp.file.title, "w YYYY").add(1, "w").format("w YYYY"); 
+// days of the week as smart links, based on the note's title
 const weekdaysArr = []
 for(let i = 0; i <=6; i++){
-  weekdaysArr[i] = moment().week(tp.file.title.split(" ")[1]).day(i).format("MM-DD-YYYY");
+  weekdaysArr[i] = moment(tp.file.title, "w YYYY").week(tp.file.title.split(" ")[1]).day(i).format("MM-DD-YYYY");
 }
-%>Daily Notes
+%><< [[<% last_week_title %>]] | [[<% next_week_title %>]] >>
+
+Daily Notes
 -- Sun [[<% weekdaysArr[0] %>]]
 -- Mon [[<% weekdaysArr[1] %>]]
 -- Tue [[<% weekdaysArr[2] %>]]
