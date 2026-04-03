@@ -16,7 +16,7 @@ critical settings mentioned below, others ommitted
 - Trigger Templater on new file creation: YES
 - Enable file regex templates: YES
  - Week (\d|\d{2}) \d{4}, _templates/t_weekly.md
- - \d{2}-\d{2}-\d{4}, _templates/t_weekly.md
+ - \d{2}-\d{2}-\d{4}, _templates/t_daily.md
 
 ### Backlinks -- Built in Plugin (Optional, Recommended)
 - Show backlinks at the bottom of notes: YES
